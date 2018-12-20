@@ -13,10 +13,17 @@ static const char col_gray3[]       = "#999999";
 static const char col_gray4[]       = "#CCCCCC";
 static const char col_black[]	    = "#000000";
 static const char col_white[]       = "#FFFFFF";
+#define baralpha 0xC0
+#define borderalpha OPAQUE
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_black },
 	[SchemeSel]  = { col_black, col_white,  col_white  },
+};
+static const unsigned int alphas[][3]      = {
+	/*               fg      bg        border     */
+	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
+	[SchemeSel]  = { baralpha, baralpha, borderalpha },
 };
 
 /* tagging */
