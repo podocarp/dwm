@@ -8,18 +8,18 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=11" };
 static const char dmenufont[]       = "monospace:size=12";
-static const char col_gray1[]       = "#222222";
+static const char col_gray1[]       = "#111111";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#999999";
 static const char col_gray4[]       = "#CCCCCC";
 static const char col_black[]	    = "#000000";
 static const char col_white[]       = "#FFFFFF";
-#define baralpha 0xC0
+#define baralpha 0xD8
 #define borderalpha OPAQUE
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_black, col_gray1, col_black },
-	[SchemeSel]  = { col_black, col_white,  col_white  },
+	[SchemeNorm] = { col_black, col_gray3, col_black },
+	[SchemeSel]  = { col_black, col_gray4,  col_white  },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
@@ -78,8 +78,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_h,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_l,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_o,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_j,      incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_k,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_k,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_j,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
