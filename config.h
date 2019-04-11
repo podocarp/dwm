@@ -3,7 +3,7 @@
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int gappx     = 5;
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int snap      = 0;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = {
@@ -17,17 +17,15 @@ static const char col_gray3[]       = "#666666";
 static const char col_gray4[]       = "#999999";
 static const char col_black[]	    = "#000000";
 static const char col_white[]       = "#FFFFFF";
-#define baralpha 0xC0
-#define borderalpha OPAQUE
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_black, col_gray3, col_black },
-	[SchemeSel]  = { col_black, col_gray4, col_white }
+	[SchemeSel]  = { col_black, col_white, col_white }
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
-	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
-	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeNorm] = { OPAQUE, 0xC0, OPAQUE },
+	[SchemeSel]  = { OPAQUE, 0xFF, OPAQUE },
 };
 
 /* tagging */
