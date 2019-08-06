@@ -2,8 +2,8 @@
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 0;
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int gappx     = 1;
+static const unsigned int snap      = 16;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = {
@@ -19,8 +19,8 @@ static const char col_black[]	    = "#000000";
 static const char col_white[]       = "#FFFFFF";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_black, col_gray4, col_black },
-	[SchemeSel]  = { col_black, col_white, "#1155AA" }
+	[SchemeNorm] = { col_black, col_gray4, col_gray1 },
+	[SchemeSel]  = { col_black, col_white, "#33CCFF" }
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
@@ -46,13 +46,11 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] 
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
-#include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
- 	{ "[@]",      spiral },
+	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ NULL,       NULL }
 };
 
@@ -82,8 +80,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_o,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.01} },
+	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.01} },
+        { MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
+        { MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
+        { MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
 	{ MODKEY,	                XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,	                XK_q,      killclient,     {0} },
