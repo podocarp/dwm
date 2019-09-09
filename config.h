@@ -7,8 +7,8 @@ static const unsigned int snap      = 16;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = {
-    "IBM Plex Sans Text:size=11",
-    "monospace:size=11",
+    "IBM Plex Sans Text:size=10",
+    "monospace:size=10",
 };
 static const char dmenufont[]       = "monospace:size=12";
 static const char col_gray1[]       = "#111111";
@@ -17,17 +17,20 @@ static const char col_gray3[]       = "#666666";
 static const char col_gray4[]       = "#999999";
 static const char col_black[]	    = "#000000";
 static const char col_white[]       = "#FFFFFF";
-#define baralpha 0xC0
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_black, col_gray4, col_gray1 },
 	[SchemeSel]  = { col_black, col_white, "#33CCFF" }
 };
+
+#define BGALPHA 0xA0
+#define FGALPHA 0xC0
+#define OPAQUE 0xFF
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
-	[SchemeNorm] = { OPAQUE, baralpha, OPAQUE },
-	[SchemeSel]  = { OPAQUE, baralpha, OPAQUE },
+	[SchemeNorm] = { FGALPHA, BGALPHA, OPAQUE },
+	[SchemeSel]  = { OPAQUE, BGALPHA, OPAQUE },
 };
 
 /* tagging */
