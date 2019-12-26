@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int gappx     = 5;
 static const unsigned int snap      = 16;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -20,17 +20,8 @@ static const char col_white[]       = "#FFFFFF";
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_black, col_gray4, col_gray1 },
-	[SchemeSel]  = { col_black, col_white, "#33CCFF" }
-};
-
-#define BGALPHA 0xA0
-#define FGALPHA 0xC0
-#define OPAQUE 0xFF
-static const unsigned int alphas[][3]      = {
-	/*               fg      bg        border     */
-	[SchemeNorm] = { FGALPHA, BGALPHA, OPAQUE },
-	[SchemeSel]  = { OPAQUE, BGALPHA, OPAQUE },
+	[SchemeNorm] = { col_black, col_gray4, col_black },
+	[SchemeSel]  = { col_black, col_white, "#33FFFF" }
 };
 
 /* tagging */
@@ -43,6 +34,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+        { "feh",      NULL,       NULL,       0,            1,           -1 },
 	{ "Nightly",  "Navigator",NULL,       1 << 8,       0,           -1 },
 	{ "Firefox Developer Edition",  "Navigator",NULL,       1 << 8,       0,           -1 },
 };
