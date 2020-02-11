@@ -1,1 +1,1 @@
-/home/pengu/.cache/wal/colors-wal-dwm.h
+$HOME/.cache/wal/colors-wal-dwm.h
