@@ -10,11 +10,18 @@ static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_border[]        = "#FF0066";
 
-#include "colors-wal-dwm.h"
+static const char norm_fg[] = "#e7e7e5";
+static const char norm_bg[] = "#0F1527";
+static const char norm_border[] = "#a1a1a0";
+
+static const char sel_fg[] = "#e7e7e5";
+static const char sel_bg[] = "#677687";
+static const char sel_border[] = "#e7e7e5";
+
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { norm_fg, norm_bg, norm_border },
-	[SchemeSel]  = { sel_fg, sel_bg,  col_border  },
+    /*               fg           bg         border                         */
+    [SchemeNorm] = { norm_fg,     norm_bg,   "#000000" }, // unfocused wins
+    [SchemeSel]  = { sel_fg,      sel_bg,    col_border },  // the focused win
 };
 
 /* tagging */

@@ -1,0 +1,3 @@
+[submodule "dwmstatus"]
+	path = dwmstatus
+	url = https://github.com/podocarp/dwmstatus
