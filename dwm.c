@@ -1303,7 +1303,7 @@ movemouse(const Arg *arg)
 
 void
 nametag(const Arg *arg) {
-	char *p, name[MAX_TAGLEN];
+	char *p, name[MAX_TAGLEN - 4];
 	FILE *f;
 	int i;
 
@@ -1312,7 +1312,7 @@ nametag(const Arg *arg) {
 		fprintf(stderr, "dwm: popen 'dmenu < /dev/null' failed%s%s\n", errno ? ": " : "", errno ? strerror(errno) : "");
 		return;
 	}
-	if (!(p = fgets(name, MAX_TAGLEN, f)) && (i = errno) && ferror(f))
+	if (!(p = fgets(name, MAX_TAGLEN - 4, f)) && (i = errno) && ferror(f))
 		fprintf(stderr, "dwm: fgets failed: %s\n", strerror(i));
 	if (pclose(f) < 0)
 		fprintf(stderr, "dwm: pclose failed: %s\n", strerror(errno));
@@ -1322,8 +1322,11 @@ nametag(const Arg *arg) {
 		*p = '\0';
 
 	for(i = 0; i < LENGTH(tags); i++)
-		if(selmon->tagset[selmon->seltags] & (1 << i))
-			strcpy(tags[i], name);
+		if(selmon->tagset[selmon->seltags] & (1 << i)) {
+                        char nicename[MAX_TAGLEN];
+                        sprintf(nicename, " (%s)", name);
+			strcat(tags[i], nicename);
+                }
 	drawbars();
 }
 
