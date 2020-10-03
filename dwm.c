@@ -134,7 +134,6 @@ struct Monitor {
 	Window barwin;
 	const Layout *lt[2];
 	Pertag *pertag;
-	unsigned int alttag;
 };
 
 typedef struct {
@@ -191,7 +190,6 @@ static void maprequest(XEvent *e);
 static void monocle(Monitor *m);
 static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
-static void nametag(const Arg *arg);
 static Client *nexttiled(Client *c);
 static void pop(Client *);
 static void propertynotify(XEvent *e);
@@ -221,7 +219,6 @@ static void spawn(const Arg *arg);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void tile(Monitor *);
-static void togglealttag();
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void toggletag(const Arg *arg);
@@ -747,7 +744,7 @@ dirtomon(int dir)
 void
 drawbar(Monitor *m)
 {
-	int x, w, wdelta, sw = 0, tw, mw, ew = 0;
+	int x, w, sw = 0, tw, mw, ew = 0;
 	int boxs = drw->fonts->h / 9;
 	int boxw = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0, n = 0;
@@ -770,9 +767,8 @@ drawbar(Monitor *m)
 	x = 0;
 	for (i = 0; i < LENGTH(tags); i++) {
 		w = TEXTW(tags[i]);
-		wdelta = selmon->alttag ? abs(TEXTW(tags[i]) - TEXTW(tagsalt[i])) / 2 : 0;
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
-		drw_text(drw, x, 0, w, bh, wdelta + lrpad / 2, (selmon->alttag ? tagsalt[i] : tags[i]), urg & 1 << i);
+		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
 		if (occ & 1 << i)
 			drw_rect(drw, x + boxs, boxs, boxw, boxw,
 				m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
@@ -1299,35 +1295,6 @@ movemouse(const Arg *arg)
 		selmon = m;
 		focus(NULL);
 	}
-}
-
-void
-nametag(const Arg *arg) {
-	char *p, name[MAX_TAGLEN - 4];
-	FILE *f;
-	int i;
-
-	errno = 0; // popen(3p) says on failure it "may" set errno
-	if(!(f = popen("dmenu < /dev/null", "r"))) {
-		fprintf(stderr, "dwm: popen 'dmenu < /dev/null' failed%s%s\n", errno ? ": " : "", errno ? strerror(errno) : "");
-		return;
-	}
-	if (!(p = fgets(name, MAX_TAGLEN - 4, f)) && (i = errno) && ferror(f))
-		fprintf(stderr, "dwm: fgets failed: %s\n", strerror(i));
-	if (pclose(f) < 0)
-		fprintf(stderr, "dwm: pclose failed: %s\n", strerror(errno));
-	if(!p)
-		return;
-	if((p = strchr(name, '\n')))
-		*p = '\0';
-
-	for(i = 0; i < LENGTH(tags); i++)
-		if(selmon->tagset[selmon->seltags] & (1 << i)) {
-                        char nicename[MAX_TAGLEN];
-                        sprintf(nicename, " (%s)", name);
-			strcat(tags[i], nicename);
-                }
-	drawbars();
 }
 
 Client *
@@ -1902,13 +1869,6 @@ tile(Monitor *m)
 			ty += HEIGHT(c) + m->gappx;
 			sfacts -= c->cfact;
 		}
-}
-
-void
-togglealttag()
-{
-	selmon->alttag = !selmon->alttag;
-	drawbar(selmon);
 }
 
 void
